@@ -1,14 +1,20 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { javascriptQuizzes } from '../data/quizzes';
+import { useProgress } from '../components/ProgressContext';
 
 export default function QuizScreen({ route, navigation }) {
-  const { quiz } = route.params;
+  const { quizId } = route.params || {};
+  const { updateProgress } = useProgress();
+
+  console.log("Received Quiz ID:", quizId);
+
+  const quiz = javascriptQuizzes.find(q => q.id === quizId) || javascriptQuizzes[0];
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [score, setScore] = useState(0);
   const [selectedAnswers, setSelectedAnswers] = useState([]);
   const [showResults, setShowResults] = useState(false);
-  const [answerFeedback, setAnswerFeedback] = useState(null); // Added state for answer feedback
 
   const handleAnswer = (index) => {
     if (!showResults) {
@@ -16,17 +22,14 @@ export default function QuizScreen({ route, navigation }) {
       setSelectedAnswers(newSelected);
 
       const isCorrect = quiz.questions[currentQuestion].correctAnswers.includes(index);
-      setAnswerFeedback(isCorrect ? 'Correct!' : 'Incorrect'); // Provide feedback for the selected answer
-
       if (isCorrect) setScore(score + 1);
 
       if (currentQuestion < quiz.questions.length - 1) {
-        setTimeout(() => {
-          setAnswerFeedback(null); // Reset feedback after 1 second
-          setCurrentQuestion(currentQuestion + 1);
-        }, 1000); // Delay before moving to the next question
+        setCurrentQuestion(currentQuestion + 1);
       } else {
         setShowResults(true);
+        // Ruajmë progresin pas përfundimit të kuizit
+        updateProgress(quiz.id, score, null);
       }
     }
   };
@@ -38,10 +41,7 @@ export default function QuizScreen({ route, navigation }) {
       {showResults ? (
         <View style={styles.results}>
           <Text style={styles.score}>Score: {score}/{quiz.questions.length}</Text>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => navigation.goBack()}
-          >
+          <TouchableOpacity style={styles.button} onPress={() => navigation.goBack()}>
             <Text style={styles.buttonText}>Back to Tutorials</Text>
           </TouchableOpacity>
         </View>
@@ -59,15 +59,10 @@ export default function QuizScreen({ route, navigation }) {
               key={index}
               style={styles.optionButton}
               onPress={() => handleAnswer(index)}
-              disabled={selectedAnswers.length > currentQuestion} // Disable options once an answer is selected
             >
               <Text style={styles.optionText}>{option}</Text>
             </TouchableOpacity>
           ))}
-
-          {answerFeedback && (
-            <Text style={styles.feedbackText}>{answerFeedback}</Text> // Display feedback after answer is selected
-          )}
         </View>
       )}
     </View>
@@ -78,38 +73,44 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
+    backgroundColor: '#121212',
+    justifyContent: 'center',
   },
   title: {
-    fontSize: 24,
+    fontSize: 26,
     fontWeight: 'bold',
     marginBottom: 20,
+    textAlign: 'center',
+    color: '#FFFFFF',
   },
   questionContainer: {
     flex: 1,
   },
   questionNumber: {
     fontSize: 16,
-    color: '#666',
+    color: '#B0BEC5',
     marginBottom: 10,
+    textAlign: 'center',
   },
   questionText: {
-    fontSize: 18,
+    fontSize: 20,
     marginBottom: 20,
+    color: '#E0E0E0',
+    textAlign: 'center',
   },
   optionButton: {
-    backgroundColor: '#f0f0f0',
-    padding: 15,
-    borderRadius: 8,
-    marginBottom: 10,
+    backgroundColor: '#333333',
+    padding: 18,
+    borderRadius: 10,
+    marginBottom: 12,
+    borderWidth: 1,
+    borderColor: '#444444',
+    elevation: 5,
   },
   optionText: {
     fontSize: 16,
-  },
-  feedbackText: {
-    fontSize: 18,
-    color: '#333',
-    marginTop: 10,
-    fontWeight: 'bold',
+    color: '#FFFFFF',
+    textAlign: 'center',
   },
   results: {
     flex: 1,
@@ -117,16 +118,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   score: {
-    fontSize: 24,
+    fontSize: 28,
+    color: '#FFFFFF',
     marginBottom: 20,
   },
   button: {
-    backgroundColor: '#2196F3',
+    backgroundColor: '#FFFFFF',
     padding: 15,
-    borderRadius: 8,
+    borderRadius: 12,
+    marginTop: 10,
+    width: '80%',
+    elevation: 8,
   },
   buttonText: {
-    color: 'white',
-    fontSize: 16,
+    color: '#121212',
+    fontSize: 18,
+    textAlign: 'center',
   },
 });

@@ -1,117 +1,120 @@
-import { useState } from 'react';
-import { View, Text, TextInput, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
+import { javascriptExercises } from '../data/exercises';
+import { useProgress } from '../components/ProgressContext';
 
-export default function ExerciseScreen({ route }) {
-  const { exercise } = route.params;
-  const navigation = useNavigation();
+export default function ExerciseScreen({ route, navigation }) {
+  const { exerciseId, category } = route.params || {};
+  const { updateProgress } = useProgress();
+
+  const exercise = javascriptExercises.find(e => e.id === exerciseId && e.category === category);
 
   const [code, setCode] = useState('');
   const [result, setResult] = useState('');
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (!exercise) {
+      navigation.goBack();
+    } else {
+      setLoading(false);
+    }
+  }, [exercise, navigation]);
 
   const checkSolution = () => {
-    const cleanCode = code.replace(/\s/g, '');
-    const cleanSolution = exercise.solution.replace(/\s/g, '');
+    const cleanCode = code.replace(/\s+/g, '');
+    const cleanSolution = exercise.solution.replace(/\s+/g, '');
+    const isCorrect = cleanCode === cleanSolution;
+    setResult(isCorrect ? '✅ Correct, great job! 🎉' : '❌ Try again! 💪');
 
-    if (cleanCode === cleanSolution) {
-      setResult('✅ Correct! Great job! 🎉');
-    } else {
-      setResult('❌ Incorrect! Try again! 💪');
+    if (isCorrect) {
+      updateProgress(null, null, exercise.title); // Regjistro ushtrimin si të përfunduar
     }
   };
 
-  return (
-    <ScrollView contentContainerStyle={styles.scrollContainer}>
+  if (loading) {
+    return (
       <View style={styles.container}>
-        <Text style={styles.title}>{exercise.title}</Text>
-        <Text style={styles.description}>{exercise.description}</Text>
-
-        <TextInput
-          style={styles.codeInput}
-          multiline
-          placeholder="Write your code here..."
-          value={code}
-          onChangeText={setCode}
-          autoCapitalize="none"
-          autoCorrect={false}
-        />
-
-        <TouchableOpacity style={styles.button} onPress={checkSolution}>
-          <Text style={styles.buttonText}>Check Solution</Text>
-        </TouchableOpacity>
-
-        {result ? <Text style={styles.result}>{result}</Text> : null}
-
-        <TouchableOpacity
-          style={[styles.button, styles.backButton]}
-          onPress={() => navigation.goBack()}
-        >
-          <Text style={styles.buttonText}>Back to Exercises</Text>
-        </TouchableOpacity>
+        <Text style={styles.title}>Loading...</Text>
       </View>
-    </ScrollView>
+    );
+  }
+
+  if (!exercise) {
+    return null;
+  }
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>{exercise.title}</Text>
+      <Text style={styles.description}>{exercise.description}</Text>
+
+      <TextInput
+        style={styles.codeInput}
+        multiline
+        placeholder="Write your code here..."
+        value={code}
+        onChangeText={setCode}
+        autoCapitalize="none"
+        autoCorrect={false}
+      />
+
+      <TouchableOpacity style={styles.button} onPress={checkSolution}>
+        <Text style={styles.buttonText}>Check Solution</Text>
+      </TouchableOpacity>
+
+      {result ? <Text style={styles.result}>{result}</Text> : null}
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  scrollContainer: {
-    flexGrow: 1,
-    justifyContent: 'center',
-  },
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: '#ecf0f1',
-    alignItems: 'center',
+    backgroundColor: '#1E1E1E',
   },
   title: {
     fontSize: 28,
-    fontWeight: '700',
-    color: '#2C3E50',
-    marginBottom: 12,
+    fontWeight: 'bold',
+    color: '#B0BEC5',
+    marginBottom: 10,
     textAlign: 'center',
   },
   description: {
-    fontSize: 18,
-    color: '#34495E',
+    fontSize: 16,
+    color: '#B0B0B0',
     marginBottom: 20,
     textAlign: 'center',
-    paddingHorizontal: 10,
   },
   codeInput: {
-    width: '100%',
-    borderColor: '#BDC3C7',
+    borderColor: '#555',
     borderWidth: 1,
     borderRadius: 12,
     padding: 15,
-    marginBottom: 25,
+    marginBottom: 20,
     fontSize: 16,
-    backgroundColor: '#fff',
-    minHeight: 150,
-    fontFamily: 'monospace',
+    color: '#E0E0E0',
+    backgroundColor: '#2C2C2C',
+    height: 150,
     textAlignVertical: 'top',
   },
   button: {
-    backgroundColor: '#1E90FF',
-    paddingVertical: 15,
-    borderRadius: 12,
+    backgroundColor: '#4CAF50',
+    padding: 15,
+    borderRadius: 8,
     alignItems: 'center',
-    width: '100%',
-    marginBottom: 10,
-  },
-  backButton: {
-    backgroundColor: '#95a5a6',
+    marginBottom: 20,
   },
   buttonText: {
-    color: '#fff',
+    color: 'white',
     fontSize: 18,
     fontWeight: '600',
   },
   result: {
     fontSize: 20,
-    fontWeight: '600',
-    marginTop: 20,
     textAlign: 'center',
-    color: '#2C3E50',
+    marginTop: 20,
+    fontWeight: 'bold',
   },
 });

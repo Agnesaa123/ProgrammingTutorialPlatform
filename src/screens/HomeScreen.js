@@ -37,7 +37,7 @@ export default function HomeScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>🚀 Welcome to CodeMaster!</Text>
+      <Text style={styles.header}>🚀Start Your Coding Adventure with CodeMaster!</Text>
       <Text style={styles.subheader}>📚 Select a topic:</Text>
 
       <FlatList

@@ -6,194 +6,268 @@ export const javascriptQuizzes = [
       {
         question: 'How do you declare a variable in JavaScript?',
         options: ['var x;', 'variable x;', 'v x;', 'let x;'],
-        correctAnswers: [0, 3], // Both var and let are correct
-        explanation: 'In JavaScript, you can declare variables using var, let, or const.',
+        correctAnswers: [0, 3],
+        explanation: 'In JavaScript, you can declare variables using var, let, or const.'
       },
       {
-        question: 'Which of the following is NOT a valid JavaScript data type?',
-        options: ['String', 'Number', 'Float', 'Boolean'],
-        correctAnswers: [2], // "Float" is not a native JS type
-        explanation: 'JavaScript has types like String, Number, and Boolean, but "Float" is not a separate type.',
+        question: 'Which data type is NOT primitive in JavaScript?',
+        options: ['String', 'Number', 'Object', 'Boolean'],
+        correctAnswers: [2],
+        explanation: 'Objects are non-primitive types in JavaScript.'
       },
       {
-        question: 'What will `console.log(typeof null)` print?',
-        options: ['"null"', '"undefined"', '"object"', '"number"'],
-        correctAnswers: [2], // typeof null returns "object"
-        explanation: 'Due to a legacy bug in JavaScript, `typeof null` returns "object".',
-      },
-      {
-        question: 'Which keyword is used to define a function in JavaScript?',
-        options: ['def', 'function', 'func', 'define'],
-        correctAnswers: [1], // "function" is correct
-        explanation: 'Functions in JavaScript are declared using the "function" keyword.',
-      },
-      {
-        question: 'Which of the following statements is TRUE about "const" variables?',
+        question: 'What is the correct way to write a function in JavaScript?',
         options: [
-          'They cannot be reassigned.',
-          'They can be redeclared in the same scope.',
-          'They are automatically hoisted to the top of the scope.',
-          'They can only store numbers.',
+          'function myFunc() {}',
+          'def myFunc() {}',
+          'func myFunc() {}',
+          'myFunc = function() {}'
         ],
-        correctAnswers: [0], // "const" variables cannot be reassigned
-        explanation: '"const" variables cannot be reassigned after they are declared.',
+        correctAnswers: [0, 3],
+        explanation: 'Functions in JavaScript can be declared with "function" or assigned as an expression.'
       },
       {
-        question: 'What will be the output of `console.log(2 + "2")` in JavaScript?',
-        options: ['4', '"22"', 'Error', 'NaN'],
-        correctAnswers: [1], // JavaScript converts 2 into a string and concatenates
-        explanation: 'JavaScript performs type coercion and converts the number to a string, resulting in "22".',
+        question: 'Which keyword is used to define a constant variable?',
+        options: ['let', 'var', 'const', 'define'],
+        correctAnswers: [2],
+        explanation: 'The "const" keyword is used to declare constant variables in JavaScript.'
       },
-    ],
+      {
+        question: 'What does `typeof null` return?',
+        options: ['null', 'undefined', 'object', 'number'],
+        correctAnswers: [2],
+        explanation: '`typeof null` incorrectly returns "object" due to a historical bug in JavaScript.'
+      }
+    ]
   },
   {
-      id: 'es6-1',
-      title: 'ES6 Features',
-      questions: [
-        {
-          question: 'Which keyword is used to create a constant variable in ES6?',
-          options: ['let', 'var', 'const', 'static'],
-          correctAnswers: [2],
-          explanation: 'The "const" keyword is used to declare variables whose values cannot be reassigned.',
-        },
-        {
-          question: 'What is the output of `[1, 2, 3].map(x => x * 2)`?',
-          options: ['[1, 2, 3]', '[2, 4, 6]', '[1, 4, 9]', 'Error'],
-          correctAnswers: [1],
-          explanation: 'The .map() function applies a transformation to each element, doubling the values.',
-        },
-        {
-          question: 'Which new loop was introduced in ES6 to iterate over iterable objects?',
-          options: ['for', 'forEach', 'for...in', 'for...of'],
-          correctAnswers: [3],
-          explanation: 'The "for...of" loop is introduced in ES6 for iterating over iterable objects like arrays and strings.',
-        },
-        {
-          question: 'Which ES6 feature allows function parameters to have default values?',
-          options: ['Rest parameters', 'Default parameters', 'Spread operator', 'Arrow functions'],
-          correctAnswers: [1],
-          explanation: 'Default parameters allow function parameters to have predefined values if no argument is passed.',
-        },
-        {
-          question: 'What does the spread operator (...) do in JavaScript?',
-          options: [
-            'Copies an object or array',
-            'Joins two arrays into one',
-            'Spreads elements of an iterable',
-            'All of the above',
-          ],
-          correctAnswers: [3],
-          explanation: 'The spread operator is used for copying, merging, and spreading elements in arrays/objects.',
-        },
-      ],
-    },
-    {
-      id: 'react-1',
-      title: 'React Components',
-      questions: [
-        {
-          question: 'What is the correct syntax to create a functional component in React?',
-          options: [
-            'function MyComponent() { return <div>Hello</div>; }',
-            'const MyComponent = () => { return <div>Hello</div>; }',
-            'Both A and B',
-            'class MyComponent extends Component { render() { return <div>Hello</div>; } }',
-          ],
-          correctAnswers: [2],
-          explanation: 'Both function declarations and arrow functions can be used to create functional components.',
-        },
-        {
-          question: 'What is the purpose of React.Fragment?',
-          options: [
-            'To group multiple elements without adding extra nodes to the DOM',
-            'To replace the main <div> in a component',
-            'To create reusable component structures',
-            'To define global styles',
-          ],
-          correctAnswers: [0],
-          explanation: 'React.Fragment allows grouping multiple elements without adding an extra node to the DOM.',
-        },
-        {
-          question: 'Which of the following is a valid way to pass props to a component?',
-          options: [
-            '<MyComponent name="John" />',
-            '<MyComponent props={{name: "John"}} />',
-            '<MyComponent {name="John"} />',
-            'None of the above',
-          ],
-          correctAnswers: [0],
-          explanation: 'Props are passed as attributes in JSX like `<MyComponent name="John" />`.',
-        },
-        {
-          question: 'What is the purpose of "key" prop in React lists?',
-          options: [
-            'It improves performance by helping React identify which items changed',
-            'It makes the list items bold',
-            'It acts as a unique identifier in the database',
-            'It changes the order of elements dynamically',
-          ],
-          correctAnswers: [0],
-          explanation: 'The "key" prop helps React efficiently update and render list items by identifying changes.',
-        },
-        {
-          question: 'Which hook is used to handle side effects in functional components?',
-          options: ['useEffect', 'useState', 'useContext', 'useReducer'],
-          correctAnswers: [0],
-          explanation: 'useEffect is used for handling side effects like fetching data or updating the DOM.',
-        },
-      ],
-    },
-    {
-      id: 'react-2',
-      title: 'State & Props in React',
-      questions: [
-        {
-          question: 'What is the difference between state and props in React?',
-          options: [
-            'State is immutable, while props can be changed',
-            'Props are passed from parent to child, while state is managed within the component',
-            'Props can only be used in class components',
-            'State and props are the same',
-          ],
-          correctAnswers: [1],
-          explanation: 'Props are passed from parent to child, while state is managed internally within a component.',
-        },
-        {
-          question: 'Which React hook is used to declare a state variable in a functional component?',
-          options: ['useState', 'useEffect', 'useReducer', 'useMemo'],
-          correctAnswers: [0],
-          explanation: 'useState is the primary hook for declaring state variables in functional components.',
-        },
-        {
-          question: 'How do you update state in a React class component?',
-          options: [
-            'this.state = { count: 2 }',
-            'this.setState({ count: 2 })',
-            'setState({ count: 2 })',
-            'count = 2',
-          ],
-          correctAnswers: [1],
-          explanation: 'State in class components is updated using "this.setState({ newState })".',
-        },
-        {
-          question: 'Can a child component modify its props directly?',
-          options: ['Yes', 'No', 'Only if using useState', 'Only in class components'],
-          correctAnswers: [1],
-          explanation: 'Props are read-only in React and cannot be modified by child components.',
-        },
-        {
-          question: 'What happens when a state variable changes in React?',
-          options: [
-            'The entire application re-renders',
-            'Only the component that owns the state re-renders',
-            'Nothing changes until props change',
-            'React calls useEffect immediately',
-          ],
-          correctAnswers: [1],
-          explanation: 'Only the component that owns the state re-renders when its state changes.',
-        },
-      ],
-    },
-  ];
-  
-
+    id: 'es6-1',
+    title: 'ES6 Features',
+    questions: [
+      {
+        question: 'Which new keyword was introduced in ES6 for declaring variables?',
+        options: ['var', 'let', 'int', 'dim'],
+        correctAnswers: [1],
+        explanation: 'ES6 introduced "let" and "const" for variable declarations.'
+      },
+      {
+        question: 'What is the purpose of arrow functions in ES6?',
+        options: [
+          'To make functions shorter',
+          'To define a class',
+          'To loop through arrays',
+          'To declare variables'
+        ],
+        correctAnswers: [0],
+        explanation: 'Arrow functions provide a shorter syntax for writing functions in JavaScript.'
+      },
+      {
+        question: 'Which ES6 feature allows for default values in function parameters?',
+        options: ['Rest parameters', 'Spread operator', 'Default parameters', 'Destructuring'],
+        correctAnswers: [2],
+        explanation: 'Default parameters allow you to set default values for function arguments.'
+      },
+      {
+        question: 'How do you import a module in ES6?',
+        options: [
+          'require("module")',
+          'import module from "module";',
+          'include module;',
+          'fetch("module")'
+        ],
+        correctAnswers: [1],
+        explanation: 'ES6 introduced "import" for module imports instead of "require".'
+      },
+      {
+        question: 'What is the spread operator used for?',
+        options: [
+          'Expanding an array or object',
+          'Creating a loop',
+          'Declaring a function',
+          'Comparing values'
+        ],
+        correctAnswers: [0],
+        explanation: 'The spread operator (...) is used to expand arrays or object properties.'
+      }
+    ]
+  },
+  {
+    id: 'react-1',
+    title: 'React Components',
+    questions: [
+      {
+        question: 'What is a React component?',
+        options: [
+          'A function or class that returns JSX',
+          'A JavaScript object',
+          'An HTML element',
+          'A React library'
+        ],
+        correctAnswers: [0],
+        explanation: 'A React component is a function or class that returns JSX to render UI.'
+      },
+      {
+        question: 'How do you pass data to a component in React?',
+        options: ['Using state', 'Using props', 'Using functions', 'Using events'],
+        correctAnswers: [1],
+        explanation: 'Props are used to pass data from one component to another in React.'
+      },
+      {
+        question: 'What hook is used to manage component state in React?',
+        options: ['useEffect', 'useState', 'useReducer', 'useContext'],
+        correctAnswers: [1],
+        explanation: 'The useState hook is used to manage state in functional components.'
+      },
+      {
+        question: 'Which syntax is used to define a functional component in React?',
+        options: [
+          'function MyComponent() { return <div></div>; }',
+          'class MyComponent extends React.Component { render() { return <div></div>; }}',
+          'React.createComponent(MyComponent)',
+          'MyComponent() => { return <div></div>; }'
+        ],
+        correctAnswers: [0, 1],
+        explanation: 'React supports both functional and class components.'
+      },
+      {
+        question: 'What is JSX?',
+        options: [
+          'JavaScript XML',
+          'A templating language',
+          'A styling framework',
+          'A JavaScript function'
+        ],
+        correctAnswers: [0],
+        explanation: 'JSX is a syntax extension of JavaScript that looks like HTML but compiles to JavaScript.'
+      }
+    ]
+  },
+  {
+    id: 'react-2',
+    title: 'State & Props in React',
+    questions: [
+      {
+        question: 'What is state in React?',
+        options: [
+          'A way to store dynamic data in a component',
+          'A method to pass data between components',
+          'A React function',
+          'A Redux store'
+        ],
+        correctAnswers: [0],
+        explanation: 'State is used to store dynamic data inside a component in React.'
+      },
+      {
+        question: 'How do you update state in a React functional component?',
+        options: ['Using this.setState()', 'Directly modifying state', 'Using useState()', 'Calling an API'],
+        correctAnswers: [2],
+        explanation: 'The useState hook is used to update state in functional components.'
+      },
+      {
+        question: 'Which of the following is true about props in React?',
+        options: [
+          'Props are immutable',
+          'Props can only be used in class components',
+          'Props can be changed within the component',
+          'Props are the same as state'
+        ],
+        correctAnswers: [0],
+        explanation: 'Props are immutable and cannot be changed within a component.'
+      },
+      {
+        question: 'What is the correct way to pass props to a child component?',
+        options: [
+          '<ChildComponent propName="value" />',
+          '<ChildComponent.propName = "value" />',
+          'ChildComponent({propName: "value"})',
+          '<ChildComponent {propName} />'
+        ],
+        correctAnswers: [0],
+        explanation: 'Props are passed using attributes in JSX: <ChildComponent propName="value" />.'
+      },
+      {
+        question: 'How do you access props in a functional component?',
+        options: [
+          'this.props',
+          'props.propName',
+          'useProps()',
+          'state.props'
+        ],
+        correctAnswers: [1],
+        explanation: 'In functional components, props are accessed directly as "props.propName".'
+      }
+    ]
+  },
+  {
+    id: 'algorithms-1',
+    title: 'Algorithms Quiz',
+    questions: [
+      {
+        question: 'What is the time complexity of the binary search algorithm?',
+        options: ['O(n)', 'O(log n)', 'O(n^2)', 'O(1)'],
+        correctAnswers: [1],
+        explanation: 'Binary search has a time complexity of O(log n).'
+      },
+      {
+        question: 'Which algorithm is used to find the shortest path in a graph?',
+        options: ['Merge Sort', 'Dijkstra\'s Algorithm', 'Quick Sort', 'Selection Sort'],
+        correctAnswers: [1],
+        explanation: 'Dijkstra\'s Algorithm is used to find the shortest path in a graph.'
+      },
+      {
+        question: 'What is the worst-case time complexity of Quick Sort?',
+        options: ['O(n)', 'O(log n)', 'O(n^2)', 'O(1)'],
+        correctAnswers: [2],
+        explanation: 'The worst-case time complexity of Quick Sort is O(n^2).'
+      },
+      {
+        question: 'Which of the following is a divide-and-conquer algorithm?',
+        options: ['Bubble Sort', 'Merge Sort', 'Selection Sort', 'Insertion Sort'],
+        correctAnswers: [1],
+        explanation: 'Merge Sort is an example of a divide-and-conquer algorithm.'
+      },
+      {
+        question: 'What is a key property of a hash table?',
+        options: ['Key-value pairs', 'Sorted order', 'Unique values', 'Static size'],
+        correctAnswers: [0],
+        explanation: 'Hash tables store data in key-value pairs.'
+      }
+    ]
+  },
+  {
+    id: 'python-1',
+    title: 'Python Basics Quiz',
+    questions: [
+      {
+        question: 'What is the correct way to declare a variable in Python?',
+        options: ['var x = 10', 'x = 10', 'int x = 10', 'x : int = 10'],
+        correctAnswers: [1],
+        explanation: 'In Python, variables are declared using the syntax "x = 10".'
+      },
+      {
+        question: 'Which of the following is a valid Python data type?',
+        options: ['Integer', 'List', 'Dictionary', 'All of the above'],
+        correctAnswers: [3],
+        explanation: 'All of the above are valid data types in Python.'
+      },
+      {
+        question: 'What is the output of print(2 * 3 + 1)?',
+        options: ['5', '6', '7', 'None of the above'],
+        correctAnswers: [2],
+        explanation: 'The correct output is 7, as multiplication happens before addition.'
+      },
+      {
+        question: 'Which Python keyword is used to define a function?',
+        options: ['def', 'function', 'define', 'func'],
+        correctAnswers: [0],
+        explanation: 'Functions in Python are defined using the keyword "def".'
+      },
+      {
+        question: 'How do you add an item to a list in Python?',
+        options: ['list.append(item)', 'list.add(item)', 'list.push(item)', 'list.insert(item)'],
+        correctAnswers: [0],
+        explanation: 'The "append()" method adds an item to a list in Python.'
+      }
+    ]
+  }
+];
